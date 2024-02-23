@@ -16,7 +16,7 @@ class Home extends React.Component {
   }
 
   getData(){
-    axios.get("http://localhost:7265/UrbexType")
+    axios.get("http://localhost:7265/urbex")
       .then(response => {
         console.log(response.data); // Affiche les données reçues depuis le serveur
         this.setState({urbexData: response.data}); // Met à jour le state avec les données
@@ -33,7 +33,7 @@ class Home extends React.Component {
 
     </header>
     {this.state.urbexData.map(urbex => {
-  return <UrbexCard key={urbex.urbexTypeId} urbex={urbex}></UrbexCard>;
+  return <UrbexCard key={urbex.urbexId} urbex={urbex}></UrbexCard>;
 })}
   </div>)
   }

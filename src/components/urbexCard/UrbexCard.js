@@ -1,17 +1,18 @@
 import React    from "react";
 import template from "./UrbexCard.jsx";
 import { TextField, Button, Typography, Card, CardMedia, CardContent, CardActions } from '@material-ui/core';
+import { Link } from "react-router-dom";
 
 class UrbexCard extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {name: ""};
+    this.state = {urbex:null};
   }
 
   componentDidUpdate(prevProps) {
-      if(prevProps.urbex?.name !== this.props.urbex?.name || this.state.name !== this.props.urbex?.name){
-        this.setState({name: this.props.urbex?.name}); // Met à jour le state avec les données
+      if(prevProps.urbex?.name !== this.props.urbex?.name || this.state.urbex !== this.props.urbex){
+        this.setState({urbex:this.props.urbex}); // Met à jour le state avec les données
         console.log('updated it!',this.props);
       }
   }
@@ -26,16 +27,16 @@ class UrbexCard extends React.Component {
       />
       <CardContent>
         <Typography variant="h5" component="div">
-          {this.state.name}
+          {this.state.urbex?.name}
         </Typography>
         <Typography variant="body2" >
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        {this.state.urbex?.commentaire}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <Link to={"/urbex/"+this.state.urbex?.urbexId}>
+      <Button size="small">En savoir plus</Button>
+      </Link>
       </CardActions>
     </Card>
 
