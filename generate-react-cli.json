@@ -1,6 +1,6 @@
 {
   "usesTypeScript": false,
-  "usesStyledComponents": true,
+  "usesStyledComponents": false,
   "testLibrary": "None",
   "component": {
     "default": {
@@ -10,5 +10,7 @@
       "withStory": false,
       "withLazy": false
     }
-  }
+  },
+  "usesCssModule": true,
+  "cssPreprocessor": "css"
 }
