@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Button, Typography, Card, CardMedia, CardContent, CardActions } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 class UrbexCard extends React.Component {
   constructor(props) {
@@ -9,35 +9,34 @@ class UrbexCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.urbex?.name !== this.props.urbex?.name || this.state.urbex !== this.props.urbex) {
+    if (prevProps.urbex !== this.props.urbex) {
       this.setState({ urbex: this.props.urbex });
-      console.log('updated it!', this.props);
     }
   }
 
   render() {
+    const { urbex } = this.state;
+
     return (
-      <div style={{ display: "inline-block", margin: "10px" }}> {/* Style pour afficher les cartes en ligne */}
+      <div style={{ display: 'inline-block', margin: '10px' }}>
         <Card sx={{ minWidth: 300 }}>
           <CardMedia
             sx={{ height: 200 }}
-            image="/logo512.png"
-            title="green iguana"
+            image={urbex?.image || '/logo512.png'}
+            title={urbex?.name}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {this.state.urbex?.name}
+            <Typography gutterBottom variant='h5' component='div'>
+              {urbex?.name}
             </Typography>
-            <Typography variant="body2" >
-              {this.state.urbex?.commentaire}
-            </Typography>
+            <Typography variant='body2'>{urbex?.commentaire}</Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Share</Button>
+            <Button component={Link} to="/EnSavoirPlus" size='small'>En savoir plus</Button>
           </CardActions>
         </Card>
       </div>
-    )
+    );
   }
 }
 

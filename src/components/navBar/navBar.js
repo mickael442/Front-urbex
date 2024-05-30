@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
-import axios from "axios";
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,31 +15,31 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+// Pages et paramètres pour le menu de navigation
 const pages = ['Catégorie', 'Guide', 'Map'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+const NavBar = ({ setSelectedCategory }) => {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const [urbexData, setUrbexData] = useState([]);
 
   useEffect(() => {
     getData();
-    console.log('mount it!');
   }, []);
 
   const getData = () => {
-    axios.get("http://localhost:7265/UrbexType")
+    axios
+      .get('http://localhost:7265/UrbexType')
       .then(response => {
-        console.log(response.data);
         setUrbexData(response.data);
       })
       .catch(error => {
-        console.error("Erreur de requête :", error.message);
+        console.error('Erreur de requête :', error.message);
       });
-  }
+  };
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -47,14 +47,13 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCategoryItemClick = (category) => {
+  const handleCategoryItemClick = categoryId => {
+    console.log(`Category ID sélectionné : ${categoryId}`); // Ajoutez cette ligne pour le débogage
+    setSelectedCategory(categoryId);
     handleCloseNavMenu();
-    // Redirige vers une nouvelle page avec le nom de la catégorie dans l'URL
-    // (n'oubliez pas d'importer NavLink depuis react-router-dom)
-    // <NavLink to={`/category/${category}`} />
   };
 
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -71,7 +70,7 @@ const NavBar = () => {
             variant="h6"
             noWrap
             component={NavLink}
-            to="#app-bar-with-responsive-menu"
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -114,8 +113,8 @@ const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={() => handleCategoryItemClick(page)}>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={() => handleCategoryItemClick(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -123,11 +122,12 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <div key={page}>
+            {pages.map((page, index) => (
+              <div key={index}>
                 {page === 'Catégorie' ? (
-                  <div>
+                  <div key={page}>
                     <Button
+                      key={page}
                       onClick={handleOpenNavMenu}
                       sx={{ my: 2, color: 'white', display: 'block' }}
                     >
@@ -139,8 +139,8 @@ const NavBar = () => {
                       open={Boolean(anchorElNav)}
                       onClose={handleCloseNavMenu}
                     >
-                      {urbexData.map((u) => (
-                        <MenuItem key={u.id} onClick={() => handleCategoryItemClick(u.name)}>
+                      {urbexData.map(u => (
+                        <MenuItem key={u.id} onClick={() => handleCategoryItemClick(u.id)}>
                           <Typography>{u.name}</Typography>
                         </MenuItem>
                       ))}
@@ -148,6 +148,7 @@ const NavBar = () => {
                   </div>
                 ) : (
                   <Button
+                    key={page} // Ajout de la clé unique ici
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
@@ -180,8 +181,8 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -193,13 +194,4 @@ const NavBar = () => {
   );
 };
 
-const App = () => {
-  return (
-    <Router>
-      <NavBar />
-      {/* Vos autres composants */}
-    </Router>
-  );
-};
-
-export default App;
+export default NavBar;
