@@ -1,42 +1,50 @@
-import React    from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import template from "./Home.jsx";
 import UrbexCard from "../urbexCard/UrbexCard.js";
 import axios from "axios";
 
-class Home extends React.Component {
-
+class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {urbexData: []};
+    this.state = { urbexData: [], error: null };
   }
 
   componentDidMount() {
     this.getData();
-        console.log('mount it!');
+    console.log("Component mounted!");
   }
 
-  getData(){
-    axios.get("http://localhost:7265/urbex")
-      .then(response => {
+  getData() {
+    axios
+      .get("http://localhost:7265/urbex")
+      .then((response) => {
         console.log(response.data); // Affiche les données reçues depuis le serveur
-        this.setState({urbexData: response.data}); // Met à jour le state avec les données
+        this.setState({ urbexData: response.data });
       })
-      .catch(error => {
-        console.error("Erreur de requête :", error.message);
+      .catch((error) => {
+        console.error("Request error:", error.message);
+        this.setState({ error: error.message });
       });
   }
 
-
   render() {
-    return     (<div className="Home">
-    <header className="Home-header">
+    const { urbexData, error } = this.state;
 
-    </header>
-    {this.state.urbexData.map(urbex => {
-  return <UrbexCard key={urbex.urbexId} urbex={urbex}></UrbexCard>;
-})}
-  </div>)
+    return (
+      <div className="Home">
+        <header className="Home-header"></header>
+        {error && <p className="error">{error}</p>}
+        {urbexData.map((urbex) => (
+          <UrbexCard key={urbex.urbexId} urbex={urbex} />
+        ))}
+      </div>
+    );
   }
 }
+
+Home.propTypes = {
+  // Ajoutez des propTypes si nécessaire
+};
 
 export default Home;

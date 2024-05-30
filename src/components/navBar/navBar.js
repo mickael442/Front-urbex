@@ -1,4 +1,5 @@
-import React, {useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import axios from "axios";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,23 +21,6 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  
   const [urbexData, setUrbexData] = useState([]);
 
   useEffect(() => {
@@ -55,6 +39,29 @@ const NavBar = () => {
       });
   }
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCategoryItemClick = (category) => {
+    handleCloseNavMenu();
+    // Redirige vers une nouvelle page avec le nom de la catégorie dans l'URL
+    // (n'oubliez pas d'importer NavLink depuis react-router-dom)
+    // <NavLink to={`/category/${category}`} />
+  };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -63,8 +70,8 @@ const NavBar = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={NavLink}
+            to="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -108,7 +115,7 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={() => handleCategoryItemClick(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -132,16 +139,11 @@ const NavBar = () => {
                       open={Boolean(anchorElNav)}
                       onClose={handleCloseNavMenu}
                     >
-                      {
-                        urbexData.map(u => {
-                          return (                      
-                          <MenuItem onClick={handleCloseNavMenu}>
-                            <Typography>{u.name}</Typography>
-                          </MenuItem>)
-                        })
-                      }
-
-
+                      {urbexData.map((u) => (
+                        <MenuItem key={u.id} onClick={() => handleCategoryItemClick(u.name)}>
+                          <Typography>{u.name}</Typography>
+                        </MenuItem>
+                      ))}
                     </Menu>
                   </div>
                 ) : (
@@ -191,8 +193,13 @@ const NavBar = () => {
   );
 };
 
-NavBar.propTypes = {};
+const App = () => {
+  return (
+    <Router>
+      <NavBar />
+      {/* Vos autres composants */}
+    </Router>
+  );
+};
 
-NavBar.defaultProps = {};
-
-export default NavBar;
+export default App;
