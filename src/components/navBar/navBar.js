@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,7 +15,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-// Pages et paramètres pour le menu de navigation
 const pages = ['Catégorie', 'Guide', 'Map'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -23,6 +22,7 @@ const NavBar = ({ setSelectedCategory }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [urbexData, setUrbexData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData();
@@ -47,9 +47,9 @@ const NavBar = ({ setSelectedCategory }) => {
     setAnchorElNav(null);
   };
 
-  const handleCategoryItemClick = categoryId => {
-    console.log(`Category ID sélectionné : ${categoryId}`); // Ajoutez cette ligne pour le débogage
-    setSelectedCategory(categoryId);
+  const handleCategoryItemClick = (name) => {
+    setSelectedCategory(name);
+    navigate(`/filtre/${name}`);
     handleCloseNavMenu();
   };
 
@@ -59,6 +59,16 @@ const NavBar = ({ setSelectedCategory }) => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleGuideClick = () => {
+    navigate('/guide');
+    handleCloseNavMenu();
+  };
+
+  const handleMapClick = () => {
+    navigate('/Recherche');
+    handleCloseNavMenu();
   };
 
   return (
@@ -114,7 +124,10 @@ const NavBar = ({ setSelectedCategory }) => {
               }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={index} onClick={() => handleCategoryItemClick(page)}>
+                <MenuItem
+                  key={index}
+                  onClick={page === 'Guide' ? handleGuideClick : page === 'Map' ? handleMapClick : handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -140,7 +153,7 @@ const NavBar = ({ setSelectedCategory }) => {
                       onClose={handleCloseNavMenu}
                     >
                       {urbexData.map(u => (
-                        <MenuItem key={u.id} onClick={() => handleCategoryItemClick(u.id)}>
+                        <MenuItem key={u.UrbexTypeId} onClick={() => handleCategoryItemClick(u.name)}>
                           <Typography>{u.name}</Typography>
                         </MenuItem>
                       ))}
@@ -148,8 +161,8 @@ const NavBar = ({ setSelectedCategory }) => {
                   </div>
                 ) : (
                   <Button
-                    key={page} // Ajout de la clé unique ici
-                    onClick={handleCloseNavMenu}
+                    key={page}
+                    onClick={page === 'Guide' ? handleGuideClick : page === 'Map' ? handleMapClick : handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     {page}

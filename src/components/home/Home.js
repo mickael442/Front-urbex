@@ -21,7 +21,7 @@ class Home extends Component {
 
   getData() {
     axios
-      .get('http://localhost:7265/urbex')
+      .get('http://localhost:7265/urbex')   
       .then(response => {
         this.setState({ urbexData: response.data });
       })
@@ -43,7 +43,6 @@ class Home extends Component {
       <div className='Home'>
         <header className='Home-header'></header>
         {error && <p className='error'>{error}</p>}
-        <p>Filtre sélectionné: {selectedCategory ? `ID = ${selectedCategory}` : 'Aucun filtre'}</p>
         {filteredData.map(urbex => (
           <UrbexCard key={urbex.urbexId} urbex={urbex} />
         ))}
