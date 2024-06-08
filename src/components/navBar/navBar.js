@@ -47,9 +47,9 @@ const NavBar = ({ setSelectedCategory }) => {
     setAnchorElNav(null);
   };
 
-  const handleCategoryItemClick = (name) => {
+  const handleCategoryItemClick = (id, name) => {
     setSelectedCategory(name);
-    navigate(`/filtre/${name}`);
+    navigate(`/filtre/${id}`);
     handleCloseNavMenu();
   };
 
@@ -153,8 +153,8 @@ const NavBar = ({ setSelectedCategory }) => {
                       onClose={handleCloseNavMenu}
                     >
                       {urbexData.map(u => (
-                        <MenuItem key={u.UrbexTypeId} onClick={() => handleCategoryItemClick(u.name)}>
-                          <Typography>{u.name}</Typography>
+                        <MenuItem key={u.urbexTypeId} onClick={() => handleCategoryItemClick(u.urbexTypeId, u.name)}>
+                          <Typography>{`${u.name} (ID: ${u.urbexTypeId})`}</Typography>
                         </MenuItem>
                       ))}
                     </Menu>

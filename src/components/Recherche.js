@@ -1,26 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-const urbexs = [
-  {
-    id: 1,
-    name: 'urbex A',
-    description: 'Description du urbex A',
-    image: 'imageA.jpg'
-  },
-  {
-    id: 2,
-    name: 'urbex B',
-    description: 'Description du urbex B',
-    image: 'imageB.jpg'
-  },
-  {
-    id: 3,
-    name: 'urbex C',
-    description: 'Description du urbex C',
-    image: 'imageC.jpg'
-  }
-];
+import UrbexCard from './UrbexCard'; // Assurez-vous que le chemin est correct
+import axios from 'axios';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,36 +21,42 @@ const SearchBar = ({ onSearch }) => {
   );
 };
 
-const urbexPage = () => {
-  const [filteredurbexs, setFilteredurbexs] = useState(urbexs);
+const UrbexPage = () => {
+  const [urbexData, setUrbexData] = useState([]);
+  const [filteredUrbexs, setFilteredUrbexs] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:7265/urbex')
+      .then(response => {
+        setUrbexData(response.data);
+        setFilteredUrbexs(response.data);
+      })
+      .catch(error => {
+        setError(error.message);
+      });
+  }, []);
 
   const handleSearch = searchTerm => {
-    const filtered = urbexs.filter(urbex =>
+    const filtered = urbexData.filter(urbex =>
       urbex.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredurbexs(filtered);
+    setFilteredUrbexs(filtered);
   };
 
   return (
     <div className="urbex-page">
-      <h1>Bienvenue à la page du urbex!</h1>
       <div className="search-bar">
         <SearchBar onSearch={handleSearch} />
       </div>
+      {error && <p className='error'>{error}</p>}
       <div className="urbex-list">
-        {filteredurbexs.map(urbex => (
-          <div key={urbex.id} className="urbex">
-            <img src={urbex.image} alt={urbex.name} />
-            <h3>{urbex.name}</h3>
-            <p>{urbex.description}</p>
-            <Link to={`/urbex/${urbex.id}`}>
-              <button>Voir plus</button>
-            </Link>
-          </div>
+        {filteredUrbexs.map(urbex => (
+          <UrbexCard key={urbex.urbexId} urbex={urbex} />
         ))}
       </div>
     </div>
   );
 };
 
-export default urbexPage;
+export default UrbexPage;

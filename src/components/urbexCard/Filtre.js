@@ -1,62 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Button, Typography, Card, CardMedia, CardContent, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
-import UrbexCard from './UrbexCard'; // Assurez-vous que le chemin est correct
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleChange = event => {
-    setSearchTerm(event.target.value);
-    onSearch(event.target.value);
-  };
-
-  return (
-    <input
-      type="text"
-      placeholder="Rechercher..."
-      value={searchTerm}
-      onChange={handleChange}
-    />
-  );
-};
-
-const UrbexPage = () => {
+const Filtre = () => {
+  const { id } = useParams();
   const [urbexData, setUrbexData] = useState([]);
-  const [filteredUrbexs, setFilteredUrbexs] = useState([]);
-  const [error, setError] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:7265/urbex')
-      .then(response => {
-        setUrbexData(response.data);
-        setFilteredUrbexs(response.data);
-      })
-      .catch(error => {
-        setError(error.message);
-      });
+    // Fonction pour récupérer les données urbex
+    const getData = () => {
+      axios
+        .get(`http://localhost:7265/urbex/urbexType/${id}`)
+        .then(response => {
+          setUrbexData(response.data);
+        })
+        .catch(error => {
+          console.error('Erreur de requête :', error.message);
+        });
+    };
+
+    getData();
   }, []);
 
-  const handleSearch = searchTerm => {
-    const filtered = urbexData.filter(urbex =>
-      urbex.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredUrbexs(filtered);
-  };
+  useEffect(() => {
+    // Filtrer les données urbex
+    setFilteredData(urbexData);
+  }, [urbexData]);
 
   return (
-    <div className="urbex-page">
-      <div className="search-bar">
-        <SearchBar onSearch={handleSearch} />
-      </div>
-      {error && <p className='error'>{error}</p>}
-      <div className="urbex-list">
-        {filteredUrbexs.map(urbex => (
-          <UrbexCard key={urbex.urbexId} urbex={urbex} />
-        ))}
-      </div>
+    
+    <div>
+      {filteredData.map(urbex => (
+        <div key={urbex.id} style={{ display: 'inline-block', margin: '10px' }}>
+          <Card sx={{ minWidth: 300 }}>
+            <CardMedia
+              sx={{ height: 200 }}
+              image={urbex.image || '/logo512.png'}
+              title={urbex.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant='h5' component='div'>
+                {urbex.name}
+              </Typography>
+              <Typography variant='body2'>{urbex.commentaire}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button component={Link} to={`/EnSavoirPlus/${urbex.id}`} size='small'>En savoir plus</Button>
+            </CardActions>
+          </Card>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default UrbexPage;
+export default Filtre;
