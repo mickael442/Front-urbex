@@ -13,10 +13,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Catégorie', 'Guide', 'Map'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Catégorie', 'Guide', 'Publier un urbex', 'Contact']; // Correction du nom de la page
+const settings = ['Profil', 'Déconnection'];
 
 const NavBar = ({ setSelectedCategory }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -66,8 +65,13 @@ const NavBar = ({ setSelectedCategory }) => {
     handleCloseNavMenu();
   };
 
-  const handleMapClick = () => {
-    navigate('/Recherche');
+  const handlePublishUrbexClick = () => {
+    navigate('/publication');
+    handleCloseNavMenu();
+  };
+
+  const handleContactClick = () => {
+    navigate('/ContactForm');
     handleCloseNavMenu();
   };
 
@@ -75,7 +79,6 @@ const NavBar = ({ setSelectedCategory }) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -91,7 +94,7 @@ const NavBar = ({ setSelectedCategory }) => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Urbex
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -126,7 +129,15 @@ const NavBar = ({ setSelectedCategory }) => {
               {pages.map((page, index) => (
                 <MenuItem
                   key={index}
-                  onClick={page === 'Guide' ? handleGuideClick : page === 'Map' ? handleMapClick : handleCloseNavMenu}
+                  onClick={
+                    page === 'Guide'
+                      ? handleGuideClick
+                      : page === 'Publier un urbex'
+                      ? handlePublishUrbexClick
+                      : page === 'Contact'
+                      ? handleContactClick
+                      : handleCloseNavMenu
+                  }
                 >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
@@ -162,7 +173,15 @@ const NavBar = ({ setSelectedCategory }) => {
                 ) : (
                   <Button
                     key={page}
-                    onClick={page === 'Guide' ? handleGuideClick : page === 'Map' ? handleMapClick : handleCloseNavMenu}
+                    onClick={
+                      page === 'Guide'
+                        ? handleGuideClick
+                        : page === 'Publier un urbex'
+                        ? handlePublishUrbexClick
+                        : page === 'Contact'
+                        ? handleContactClick
+                        : handleCloseNavMenu
+                    }
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     {page}
