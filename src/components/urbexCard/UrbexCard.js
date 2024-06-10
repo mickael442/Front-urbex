@@ -32,7 +32,7 @@ class UrbexCard extends React.Component {
             <Typography variant='body2'>{urbex?.commentaire}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={Link} to="/EnSavoirPlus" size='small'>En savoir plus</Button>
+            <Button component={Link} to={`/EnSavoirPlus/55`} size='small'>En savoir plus</Button>
           </CardActions>
         </Card>
       </div>

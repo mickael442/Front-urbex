@@ -1,1 +1,67 @@
- 
+.Home {
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 20px;
+  color: #333;
+  line-height: 1.8;
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Home-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Home-intro {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
+
+.Home-intro h1 {
+  color: #007BFF;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Home-intro h2 {
+  color: #17A2B8;
+  font-size: 2em;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.Home-intro p {
+  color: #6c757d;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.UrbexCard-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.UrbexCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}

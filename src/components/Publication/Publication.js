@@ -7,7 +7,10 @@ const Publication = () => {
     Name: '',
     UrbexTypeId: '',
     Commentaire: '',
-    ImageUrl: ''
+    ImageUrl: '',
+    acces: '',
+    histoire: '',
+    exploration: ''
   });
   const [urbexData, setUrbexData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -49,6 +52,14 @@ const Publication = () => {
       formDataToSend.append('UrbexTypeId', formData.UrbexTypeId);
       formDataToSend.append('Commentaire', formData.Commentaire);
       formDataToSend.append('ImageUrl', formData.ImageUrl);
+      formDataToSend.append('acces', formData.acces);
+
+      // Check if 'histoire' is empty, set it to null if it is
+      formDataToSend.append('histoire', formData.histoire || null);
+      
+      // Check if 'exploration' is empty, set it to null if it is
+      formDataToSend.append('exploration', formData.exploration || null);
+
       if (selectedFile) {
         formDataToSend.append('file', selectedFile);
       }
@@ -67,7 +78,10 @@ const Publication = () => {
         Name: '',
         UrbexTypeId: '',
         Commentaire: '',
-        ImageUrl: ''
+        ImageUrl: '',
+        acces: '',
+        histoire: '',
+        exploration: ''
       });
       setSelectedFile(null);
     } catch (error) {
@@ -88,6 +102,7 @@ const Publication = () => {
             value={formData.Name}
             onChange={handleChange}
             required
+            placeholder="Entrez le nom"
           />
         </div>
         <div className="form-group">
@@ -108,16 +123,47 @@ const Publication = () => {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="Commentaire">Commentaire</label>
+          <label htmlFor="Commentaire">Description</label>
           <textarea
             id="Commentaire"
             name="Commentaire"
             value={formData.Commentaire}
             onChange={handleChange}
+            placeholder="Entrez une courte description de l'urbex"
           ></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="ImageUrl">URL de l'Image</label>
+          <label htmlFor="acces">Accès</label>
+          <textarea
+            id="acces"
+            name="acces"
+            value={formData.acces}
+            onChange={handleChange}
+            placeholder="Décrivez comme accéder a l'urbex"
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="histoire">Histoire</label>
+          <textarea
+            id="histoire"
+            name="histoire"
+            value={formData.histoire}
+            onChange={handleChange}
+            placeholder="Décrivez l'histoire del'urbex"
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="exploration">Exploration</label>
+          <textarea
+            id="exploration"
+            name="exploration"
+            value={formData.exploration}
+            onChange={handleChange}
+            placeholder="Donné des information sur l'exploration"
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="ImageUrl">Image</label>
           <input
             type="file"
             id="ImageUrl"

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import UrbexCard from '../urbexCard/UrbexCard.js';
 import axios from 'axios';
+import './Home.css';  // Assurez-vous que ce chemin est correct
 
 class Home extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Home extends Component {
 
   getData() {
     axios
-      .get('http://localhost:7265/urbex')   
+      .get('http://localhost:7265/urbex')
       .then(response => {
         this.setState({ urbexData: response.data });
       })
@@ -32,9 +33,8 @@ class Home extends Component {
 
   render() {
     const { urbexData, error } = this.state;
-    const { selectedCategory } = this.props; // Récupérer la catégorie sélectionnée des props
+    const { selectedCategory } = this.props;
 
-    // Filtrer les données urbex en fonction de l'ID de la catégorie sélectionnée
     const filteredData = selectedCategory
       ? urbexData.filter(urbex => urbex.typeId === selectedCategory)
       : urbexData;
@@ -42,17 +42,37 @@ class Home extends Component {
     return (
       <div className='Home'>
         <header className='Home-header'></header>
+        <section className='Home-intro'>
+          <h1>Bienvenue sur Urbex France</h1>
+          <p>
+            Vous êtes passionné par la découverte de lieux abandonnés, mystiques et empreints d'histoire ? Vous êtes au bon endroit. Urbex France est le guide ultime pour tous les explorateurs urbains en quête de nouveaux terrains à découvrir en France.
+          </p>
+          <h2>Qu'est-ce que l'Urbex ?</h2>
+          <p>
+            L'exploration urbaine, ou urbex, consiste à visiter des structures abandonnées ou rarement accessibles au public, telles que des usines désaffectées, des châteaux en ruines, des hôpitaux abandonnés et bien plus encore. C'est une aventure qui mêle histoire, architecture et adrénaline.
+          </p>
+          <h2>Découvrez Nos Dernières Trouvailles</h2>
+          <p>
+            Explorez notre section "Dernières Découvertes" pour être au courant des nouveaux sites ajoutés. Chaque lieu est unique et offre une expérience différente. Que vous soyez un explorateur chevronné ou un novice curieux, Urbex France a quelque chose à vous offrir.
+          </p>
+          <p>
+            Merci de visiter Urbex France. Préparez votre sac à dos, chargez votre appareil photo, et partez à l'aventure avec nous !
+          </p>
+        </section>
+        <h1>Les dernières expériences d'urbex</h1>
         {error && <p className='error'>{error}</p>}
-        {filteredData.map(urbex => (
-          <UrbexCard key={urbex.urbexId} urbex={urbex} />
-        ))}
+        <div className='UrbexCard-container'>
+          {filteredData.map(urbex => (
+            <UrbexCard key={urbex.urbexId} urbex={urbex} className='UrbexCard' />
+          ))}
+        </div>
       </div>
     );
   }
 }
 
 Home.propTypes = {
-  selectedCategory: PropTypes.number, // Ajoutez des propTypes si nécessaire
+  selectedCategory: PropTypes.number,
 };
 
 export default Home;

@@ -1,52 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Typography, Card, CardMedia, CardContent } from '@mui/material';
 
-function EnSavoirPlus() {
-  const { id } = useParams();
-  const [urbex, setUrbex] = useState(null);
-  const [error, setError] = useState(null);
+const EnSavoirPlus = () => {
+    const { id } = useParams();
+    const [urbex, setUrbex] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Remplacer l'URL par celle de votre API
-    axios.get(`http://localhost:7265/urbex/${id}`)
-      .then(response => {
-        setUrbex(response.data);
-      })
-      .catch(error => {
-        setError(error.message);
-      });
-  }, [id]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:7265/urbex/${id}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setUrbex(result);
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
 
-  if (error) {
-    return <p className='error'>Erreur: {error}</p>;
-  }
+        if (id) {
+            fetchData();
+        }
+    }, [id]);
 
-  if (!urbex) {
-    return <p>Chargement...</p>;
-  }
-
-  return (
-    <Card sx={{ minWidth: 300, margin: '20px' }}>
-      <CardMedia
-        sx={{ height: 400 }}
-        image={urbex.image || '/logo512.png'}
-        title={urbex.name}
-      />
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
-          {urbex.name}
-        </Typography>
-        <Typography variant='body2' component='p'>
-          {urbex.commentaire}
-        </Typography>
-        <Typography variant='body2' color='textSecondary'>
-          {urbex.details}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-}
+    return (
+        <div>
+            <h1>En Savoir Plus</h1>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>Erreur : {error.message}</p>
+            ) : urbex ? (
+                <div>
+                    <p><strong>Accès :</strong> {urbex.Accès}</p>
+                    <p><strong>Histoire :</strong> {urbex.Histoire}</p>
+                    <p><strong>Exploration :</strong> {urbex.Exploration}</p>
+                </div>
+            ) : (
+                <p>Aucune donnée trouvée pour l'ID {id}.</p>
+            )}
+        </div>
+    );
+};
 
 export default EnSavoirPlus;

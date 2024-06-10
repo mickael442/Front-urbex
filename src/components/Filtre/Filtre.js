@@ -51,7 +51,7 @@ const Filtre = () => {
               <Typography variant='body2'>{urbex.commentaire}</Typography>
             </CardContent>
             <CardActions>
-              <Button component={Link} to={`/EnSavoirPlus/${urbex.id}`} size='small'>En savoir plus</Button>
+              <Button component={Link} to={`/EnSavoirPlus/${urbex.UrbexId}`} size='small'>En savoir plus</Button>
             </CardActions>
           </Card>
         </div>
