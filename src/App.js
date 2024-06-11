@@ -8,6 +8,8 @@ import EnSavoirPlus from './components/EnSavoirPlus/EnSavoirPlus';
 import Connection from './components/Connection/Connection';
 import Publication from './components/Publication/Publication';
 import ContactForm from './components/Contact/ContactForm';
+import PremièreConnection from './components/Connection/PremièreConnection';
+
 
 
 
@@ -26,6 +28,8 @@ function App() {
         <Route path="/Connection" element={<Connection />} />
         <Route path="/publication" element={<Publication />} />
         <Route path="/ContactForm" element={<ContactForm />} />
+        <Route path="/PremièreConnection" element={<PremièreConnection />} />
+
         </Routes>
     </Router>
   );

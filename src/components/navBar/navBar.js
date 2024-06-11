@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 const pages = ['Catégorie', 'Guide', 'Publier un urbex', 'Contact']; // Correction du nom de la page
-const settings = ['Profil', 'Déconnection'];
+const settings = ['Profil', 'Connection'];
 
 const NavBar = ({ setSelectedCategory }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -73,6 +73,11 @@ const NavBar = ({ setSelectedCategory }) => {
   const handleContactClick = () => {
     navigate('/ContactForm');
     handleCloseNavMenu();
+  };
+
+  const handleConnectionClick = () => {
+    navigate('/Connection');
+    handleCloseUserMenu();
   };
 
   return (
@@ -214,7 +219,10 @@ const NavBar = ({ setSelectedCategory }) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                <MenuItem 
+                  key={index} 
+                  onClick={setting === 'Connection' ? handleConnectionClick : handleCloseUserMenu}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

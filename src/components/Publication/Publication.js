@@ -64,7 +64,7 @@ const Publication = () => {
         formDataToSend.append('file', selectedFile);
       }
 
-      const response = await fetch('http://localhost:5002/api/festival', {
+      const response = await fetch('http://localhost:7265/urbex', {
         method: 'POST',
         body: formDataToSend
       });
@@ -90,7 +90,7 @@ const Publication = () => {
   };
 
   return (
-    <div className="create-festival">
+    <div className="create-urbex">
       <h1>Créer une Publication</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Connection.css';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -21,10 +22,15 @@ const LoginForm = () => {
     }
   };
 
+  const handlePremièreConnection = () => {
+    // Rediriger vers la page de création de compte
+    window.location.href = '/PremièreConnection';
+  };
+
   return (
-    <div>
+    <div className="container">
       <h2>Connexion</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
@@ -49,6 +55,7 @@ const LoginForm = () => {
           />
         </div>
         <button type="submit">Se connecter</button>
+        <button type="button" className="PremièreConnection-button" onClick={handlePremièreConnection}>Première connexion</button>
       </form>
     </div>
   );

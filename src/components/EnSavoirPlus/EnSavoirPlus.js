@@ -10,23 +10,20 @@ const EnSavoirPlus = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:7265/urbex/${id}`);
+                const response = await fetch(`http://localhost:7265/urbex/UrbexId/${id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const result = await response.json();
                 setUrbex(result);
-                setLoading(false);
             } catch (error) {
                 setError(error);
-                setLoading(false);
             }
+            setLoading(false);
         };
 
-        if (id) {
-            fetchData();
-        }
-    }, [id]);
+        fetchData();
+    }, []);
 
     return (
         <div>
