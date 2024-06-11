@@ -4,6 +4,7 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    text-align: center;
 }
 
 .container {
@@ -21,19 +22,23 @@ h1 {
 
 .contact-info {
     margin: 20px 0;
+    text-align: center;
 }
 
 .contact-info h2 {
     color: #555;
+    text-decoration: underline;
 }
 
 .contact-info p {
     font-size: 1.1em;
     line-height: 1.6;
+    text-align: center;
 }
 
 .info-item {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .info-item h3 {
@@ -43,6 +48,7 @@ h1 {
 
 .info-item p {
     margin: 5px 0;
+    text-align: center;
 }
 
 .info-item .social-icon {

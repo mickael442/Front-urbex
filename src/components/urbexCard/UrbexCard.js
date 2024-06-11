@@ -22,7 +22,7 @@ class UrbexCard extends React.Component {
         <Card sx={{ minWidth: 300 }}>
           <CardMedia
             sx={{ height: 200 }}
-            image={urbex?.image || '/logo512.png'}
+            image={urbex?.image || '/Urbex.png'}
             title={urbex?.name}
           />
           <CardContent>
@@ -32,7 +32,7 @@ class UrbexCard extends React.Component {
             <Typography variant='body2'>{urbex?.commentaire}</Typography>
           </CardContent>
           <CardActions>
-            <Button component={Link} to={`/EnSavoirPlus/2`} size='small'>En savoir plus</Button>
+            <Button component={Link} to={`/EnSavoirPlus/20`} size='small'>En savoir plus</Button>
           </CardActions>
         </Card>
       </div>

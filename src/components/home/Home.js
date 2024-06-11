@@ -45,15 +45,11 @@ class Home extends Component {
         <section className='Home-intro'>
           <h1>Bienvenue sur Urbex France</h1>
           <p>
-            Vous êtes passionné par la découverte de lieux abandonnés, mystiques et empreints d'histoire ? Vous êtes au bon endroit. Urbex France est le guide ultime pour tous les explorateurs urbains en quête de nouveaux terrains à découvrir en France.
+            Vous êtes passionné par la découverte de lieux abandonnés, mystiques et empreints d'histoire ? Vous êtes au bon endroit. Urbex France est un guide pour tous les explorateurs urbains en quête de nouveaux terrains à découvrir en France.
           </p>
           <h2>Qu'est-ce que l'Urbex ?</h2>
           <p>
             L'exploration urbaine, ou urbex, consiste à visiter des structures abandonnées ou rarement accessibles au public, telles que des usines désaffectées, des châteaux en ruines, des hôpitaux abandonnés et bien plus encore. C'est une aventure qui mêle histoire, architecture et adrénaline.
-          </p>
-          <h2>Découvrez Nos Dernières Trouvailles</h2>
-          <p>
-            Explorez notre section "Dernières Découvertes" pour être au courant des nouveaux sites ajoutés. Chaque lieu est unique et offre une expérience différente. Que vous soyez un explorateur chevronné ou un novice curieux, Urbex France a quelque chose à vous offrir.
           </p>
           <p>
             Merci de visiter Urbex France. Préparez votre sac à dos, chargez votre appareil photo, et partez à l'aventure avec nous !

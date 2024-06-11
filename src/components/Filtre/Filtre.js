@@ -41,7 +41,7 @@ const Filtre = () => {
           <Card sx={{ minWidth: 300 }}>
             <CardMedia
               sx={{ height: 200 }}
-              image={urbex.image || '/logo512.png'}
+              image={urbex.ImageUrl || '/Urbex.png'}
               title={urbex.name}
             />
             <CardContent>
