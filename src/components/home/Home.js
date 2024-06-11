@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import UrbexCard from '../urbexCard/UrbexCard.js';
 import axios from 'axios';
-import './Home.css';  // Assurez-vous que ce chemin est correct
+import './Home.css'; 
 
 class Home extends Component {
   constructor(props) {

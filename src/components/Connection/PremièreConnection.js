@@ -10,7 +10,6 @@ const Publication = () => {
   });
 
   useEffect(() => {
-    // Perform any required data fetching here if needed
   }, []);
 
   const handleChange = (e) => {
@@ -22,7 +21,7 @@ const Publication = () => {
     e.preventDefault();
     console.log(formData); // Affiche les valeurs des champs dans la console
     try {
-      const response = await axios.post('http://localhost:5002/api/user', formData);
+      const response = await axios.post('http://localhost:7265/user', formData);
       if (response.status !== 200) {
         throw new Error('Network response was not ok ' + response.statusText);
       }
@@ -41,8 +40,20 @@ const Publication = () => {
 
   return (
     <div className="create-user">
-      <h1>Créer un Utilisateur</h1>
+      <h1>Créer un Compte</h1>
       <form onSubmit={handleSubmit}>
+      <div className="form-group">
+          <label htmlFor="userName">Nom d'utilisateur</label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            value={formData.userName}
+            onChange={handleChange}
+            required
+            placeholder="Entrez le nom d'utilisateur"
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -65,18 +76,6 @@ const Publication = () => {
             onChange={handleChange}
             required
             placeholder="Entrez le mot de passe"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="userName">Nom d'utilisateur</label>
-          <input
-            type="text"
-            id="userName"
-            name="userName"
-            value={formData.userName}
-            onChange={handleChange}
-            required
-            placeholder="Entrez le nom d'utilisateur"
           />
         </div>
         <button type="submit">Créer</button>

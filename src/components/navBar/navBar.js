@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Catégorie', 'Guide', 'Publier un urbex', 'Contact']; // Correction du nom de la page
+const pages = ['Catégorie', 'Guide', 'Publier un urbex', 'Contact', 'Mention légale'];
 const settings = ['Profil', 'Connection'];
 
 const NavBar = ({ setSelectedCategory }) => {
@@ -72,6 +72,11 @@ const NavBar = ({ setSelectedCategory }) => {
 
   const handleContactClick = () => {
     navigate('/ContactForm');
+    handleCloseNavMenu();
+  };
+
+  const handleLegalMentionClick = () => {
+    navigate('/MentionLegale');
     handleCloseNavMenu();
   };
 
@@ -141,6 +146,8 @@ const NavBar = ({ setSelectedCategory }) => {
                       ? handlePublishUrbexClick
                       : page === 'Contact'
                       ? handleContactClick
+                      : page === 'Mention légale'
+                      ? handleLegalMentionClick
                       : handleCloseNavMenu
                   }
                 >
@@ -170,7 +177,7 @@ const NavBar = ({ setSelectedCategory }) => {
                     >
                       {urbexData.map(u => (
                         <MenuItem key={u.urbexTypeId} onClick={() => handleCategoryItemClick(u.urbexTypeId, u.name)}>
-                          <Typography>{`${u.name} (ID: ${u.urbexTypeId})`}</Typography>
+                          <Typography>{`${u.name}`}</Typography>
                         </MenuItem>
                       ))}
                     </Menu>
@@ -185,6 +192,8 @@ const NavBar = ({ setSelectedCategory }) => {
                         ? handlePublishUrbexClick
                         : page === 'Contact'
                         ? handleContactClick
+                        : page === 'Mention légale'
+                        ? handleLegalMentionClick
                         : handleCloseNavMenu
                     }
                     sx={{ my: 2, color: 'white', display: 'block' }}

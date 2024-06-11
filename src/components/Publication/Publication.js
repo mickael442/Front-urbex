@@ -54,10 +54,8 @@ const Publication = () => {
       formDataToSend.append('ImageUrl', formData.ImageUrl);
       formDataToSend.append('acces', formData.acces);
 
-      // Check if 'histoire' is empty, set it to null if it is
       formDataToSend.append('histoire', formData.histoire || null);
       
-      // Check if 'exploration' is empty, set it to null if it is
       formDataToSend.append('exploration', formData.exploration || null);
 
       if (selectedFile) {

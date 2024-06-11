@@ -10,7 +10,7 @@ const EnSavoirPlus = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:7265/urbex/UrbexId/${id}`);
+                const response = await fetch(`http://localhost:7265/urbex/${id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -23,7 +23,7 @@ const EnSavoirPlus = () => {
         };
 
         fetchData();
-    }, []);
+    }, [id]);
 
     return (
         <div>
@@ -34,9 +34,9 @@ const EnSavoirPlus = () => {
                 <p>Erreur : {error.message}</p>
             ) : urbex ? (
                 <div>
-                    <p><strong>Accès :</strong> {urbex.Accès}</p>
-                    <p><strong>Histoire :</strong> {urbex.Histoire}</p>
-                    <p><strong>Exploration :</strong> {urbex.Exploration}</p>
+                    <p><strong>Accès :</strong> {urbex.accès}</p>
+                    <p><strong>Histoire :</strong> {urbex.histoire}</p>
+                    <p><strong>Exploration :</strong> {urbex.exploration}</p>
                 </div>
             ) : (
                 <p>Aucune donnée trouvée pour l'ID {id}.</p>

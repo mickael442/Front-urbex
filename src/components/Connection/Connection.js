@@ -10,7 +10,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/login', { email, password });
+      const response = await axios.post('http://localhost:7265/user', { email, password });
       if (response.data.success) {
         // Rediriger vers la page d'accueil ou une autre page protégée
         window.location.href = '/dashboard';

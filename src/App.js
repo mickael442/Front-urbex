@@ -1,3 +1,5 @@
+// src/App.js
+
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/navBar/navBar';
@@ -9,9 +11,7 @@ import Connection from './components/Connection/Connection';
 import Publication from './components/Publication/Publication';
 import ContactForm from './components/Contact/ContactForm';
 import PremièreConnection from './components/Connection/PremièreConnection';
-
-
-
+import MentionLegale from './components/MentionLegale/MentionLegale';
 
 
 function App() {
@@ -29,8 +29,8 @@ function App() {
         <Route path="/publication" element={<Publication />} />
         <Route path="/ContactForm" element={<ContactForm />} />
         <Route path="/PremièreConnection" element={<PremièreConnection />} />
-
-        </Routes>
+        <Route path="/MentionLegale" element={<MentionLegale />} />
+      </Routes>
     </Router>
   );
 }
